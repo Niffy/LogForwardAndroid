@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".LogForwardActivity" >
+
+    <TextView
+        android:id="@+id/status_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/activity_status_label" />
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/status_label"
+        android:layout_alignBottom="@+id/status_label"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/status_label"
+        android:text="@string/activity_status_not_running" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/status_label"
+        android:layout_below="@+id/status_label"
+        android:layout_marginTop="20dp"
+        android:text="@string/activity_button_start" />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_start"
+        android:layout_below="@+id/btn_start"
+        android:layout_marginTop="20dp"
+        android:text="@string/activity_button_stop" />
+
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_stop"
+        android:layout_below="@+id/btn_stop"
+        android:layout_marginTop="20dp"
+        android:text="@string/activity_button_settings" />
+
+    <TextView
+        android:id="@+id/label_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_settings"
+        android:layout_below="@+id/btn_settings"
+        android:text="@string/activity_text_settings" />
+
+    <Button
+        android:id="@+id/btn_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/label_settings"
+        android:layout_below="@+id/label_settings"
+        android:text="@string/activity_button_check" />
+
+</RelativeLayout>

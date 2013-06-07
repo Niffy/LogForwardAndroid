@@ -1,0 +1,44 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_main" >
+        <ListPreference
+            android:defaultValue="@integer/settings_default_log_level"
+            android:entries="@array/logging_summary"
+            android:entryValues="@array/logging_values"
+            android:key="@string/settings_key_log_level"
+            android:summary="@string/settings_logging_summary"
+            android:title="@string/settings_logging_title" />
+        <!-- Strings -->
+        <EditTextPreference
+            android:defaultValue="@string/settings_default_log_name"
+            android:key="@string/settings_key_log_name"
+            android:summary="@string/settings_log_file_summary"
+            android:title="@string/settings_log_file_title" />
+        <!-- Ints -->
+        <EditTextPreference
+            android:defaultValue="@integer/settings_default_network_buffer"
+            android:key="@string/settings_key_network_buffer"
+            android:numeric="integer"
+            android:summary="@string/settings_network_buffer_summary"
+            android:title="@string/settings_network_buffer_title" />
+         <EditTextPreference
+            android:defaultValue="@integer/settings_default_network_port"
+            android:key="@string/settings_key_network_port"
+            android:numeric="integer"
+            android:summary="@string/settings_network_port_summary"
+            android:title="@string/settings_network_port_title" />
+         <EditTextPreference
+            android:defaultValue="@integer/settings_default_log_file_size"
+            android:key="@string/settings_key_log_file_size"
+            android:numeric="integer"
+            android:summary="@string/settings_log_file_size_summary"
+            android:title="@string/settings_log_file_size_title" />
+         <EditTextPreference
+            android:defaultValue="@integer/settings_default_log_backup_qty"
+            android:key="@string/settings_key_log_backup_qty"
+            android:numeric="integer"
+            android:summary="@string/settings_log_backup_qty_summary"
+            android:title="@string/settings_log_backup_qty_title" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

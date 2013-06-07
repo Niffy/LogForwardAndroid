@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+   	<integer name="settings_default_network_port">1008</integer>
+   	<integer name="settings_default_network_buffer">12582912</integer>
+   	<integer name="settings_default_log_backup_qty">1</integer>
+   	<integer name="settings_default_log_level">10000</integer>
+   	<integer name="settings_default_log_file_size">10485760</integer>
+</resources>
