@@ -33,10 +33,11 @@ public class TaskDeleteAndroid extends TaskDelete {
 	@Override
 	public void run() {
 		super.run();
-		log.info("Reading: {}", this.mFile);
+		log.info("Checking file for deletion: {}", this.mFile);
 		File dir = Environment.getExternalStorageDirectory();
 		File logFile = new File(dir, this.mFile);
 		this.mTaskSuccessful = logFile.delete();
+		log.info("File deleted? {}", this.mTaskSuccessful);
 	}
 	// ===========================================================
 	// Getter & Setter
