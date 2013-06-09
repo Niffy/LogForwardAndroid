@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
-import com.niffy.logforward.android.R;
 import com.niffy.logforwarder.lib.ServerSelector;
 
 public class LogForwardService extends Service implements IService {
@@ -85,6 +84,8 @@ public class LogForwardService extends Service implements IService {
 	@Override
 	public void onDestroy() {
 		log.info("Destroying service");
+		THREAD = null;
+		System.gc();
 	}
 
 	@Override
@@ -94,6 +95,10 @@ public class LogForwardService extends Service implements IService {
 
 	@Override
 	public void shutdown() {
+		THREAD.shutdown();
+		THREAD.interrupt();
+		THREAD = null;
+		System.gc();
 		stopSelf();
 	}
 	

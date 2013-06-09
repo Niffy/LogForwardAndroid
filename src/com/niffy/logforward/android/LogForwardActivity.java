@@ -157,7 +157,7 @@ public class LogForwardActivity extends Activity {
 		final List<RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
 
 		for (RunningServiceInfo runningServiceInfo : services) {
-			log.info("Service name: {}", runningServiceInfo.service.getClassName());
+			log.debug("Service name: {}", runningServiceInfo.service.getClassName());
 			if (runningServiceInfo.service.getClassName().equals(serviceClassName)) {
 				return true;
 			}
