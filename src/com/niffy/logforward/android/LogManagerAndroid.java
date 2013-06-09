@@ -11,11 +11,8 @@ import com.niffy.logforwarder.lib.ISelector;
 import com.niffy.logforwarder.lib.logmanagement.LogManagerServer;
 import com.niffy.logforwarder.lib.logmanagement.task.CallbackInfo;
 import com.niffy.logforwarder.lib.logmanagement.task.CallbackTask;
-import com.niffy.logforwarder.lib.messages.IMessage;
 import com.niffy.logforwarder.lib.messages.MessageDeleteRequest;
-import com.niffy.logforwarder.lib.messages.MessageDeleteResponse;
 import com.niffy.logforwarder.lib.messages.MessageFlag;
-import com.niffy.logforwarder.lib.messages.MessageSendDataFile;
 import com.niffy.logforwarder.lib.messages.MessageSendRequest;
 import com.niffy.logforwarder.lib.messages.MessageSendSizeResponse;
 
@@ -53,6 +50,7 @@ public class LogManagerAndroid extends LogManagerServer {
 		CallbackInfo info = new CallbackInfo(pAddress, pSeq, pMessage.getSequence(), pMessage.getMessageFlag(),
 				runnable);
 		this.mRunnables.put(pSeq, info);
+		this.mCrosRef.put(pMessage.getSequence(), pSeq);
 		CallbackTask task = new CallbackTask(runnable, this, pSeq);
 		this.mService.execute(task);
 	}
@@ -64,6 +62,7 @@ public class LogManagerAndroid extends LogManagerServer {
 		CallbackInfo info = new CallbackInfo(pAddress, pSeq, pMessage.getSequence(), pMessage.getMessageFlag(),
 				runnable);
 		this.mRunnables.put(pSeq, info);
+		this.mCrosRef.put(pMessage.getSequence(), pSeq);
 		CallbackTask task = new CallbackTask(runnable, this, pSeq);
 		this.mService.execute(task);
 	}
@@ -75,34 +74,6 @@ public class LogManagerAndroid extends LogManagerServer {
 		pMessage.setSequence(pCallbackInfo.getClientSeq());
 		TaskReadAndroid runnable = (TaskReadAndroid) pCallbackInfo.getRunnable();
 		pMessage.setFileSize(runnable.getFileSize());
-		this.sendMessage(pCallbackInfo.getAddress(), pMessage);
-	}
-
-	@Override
-	protected void sendRemainingData(final InetSocketAddress pAddress, final IMessage pMessage) {
-		CallbackInfo pCallbackInfo;
-		if (this.mRunnables.containsKey(pMessage.getSequence())) {
-			pCallbackInfo = this.mRunnables.get(pMessage.getSequence());
-		} else {
-			return;
-		}
-		MessageSendDataFile dataMessage = (MessageSendDataFile) this.getMessage(MessageFlag.SEND_DATA_FILE.getNumber());
-		dataMessage.setSequence(pCallbackInfo.getClientSeq());
-		TaskReadAndroid runnable = (TaskReadAndroid) pCallbackInfo.getRunnable();
-		dataMessage.setFileSize(runnable.getFileSize());
-		dataMessage.setData(runnable.getData());
-		this.mRunnables.remove(pCallbackInfo.getClientSeq());
-		this.sendMessage(pCallbackInfo.getAddress(), dataMessage);
-	}
-	
-	@Override
-	protected void createDeleteResponse(final CallbackInfo pCallbackInfo) {
-		MessageDeleteResponse pMessage = (MessageDeleteResponse) this.getMessage(MessageFlag.DELETE_RESPONSE
-				.getNumber());
-		pMessage.setSequence(pCallbackInfo.getClientSeq());
-		TaskDeleteAndroid runnable = (TaskDeleteAndroid) pCallbackInfo.getRunnable();
-		pMessage.setDeleted(runnable.getTaskSuccesful());
-		this.mRunnables.remove(pCallbackInfo.getClientSeq());
 		this.sendMessage(pCallbackInfo.getAddress(), pMessage);
 	}
 
