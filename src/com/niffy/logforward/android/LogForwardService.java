@@ -15,7 +15,7 @@ import android.preference.PreferenceManager;
 import com.niffy.logforward.android.R;
 import com.niffy.logforwarder.lib.ServerSelector;
 
-public class LogForwardService extends Service {
+public class LogForwardService extends Service implements IService {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -57,8 +57,7 @@ public class LogForwardService extends Service {
 		InetSocketAddress pAddress = new InetSocketAddress(Utils.getIPAddress(true), pPort);
 		
 		ConfigureLog.configure(pLogName, pMaxBackupSize, pLevel, pFileSize);
-		LOGMANAGER = new LogManagerAndroid(VERSION);
-
+		LOGMANAGER = new LogManagerAndroid(VERSION, this);
 		if (THREAD != null) {
 			log.info("Selector thread is already running, no need to create a new one");
 		} else {
@@ -92,6 +91,12 @@ public class LogForwardService extends Service {
 	public IBinder onBind(Intent arg0) {
 		return null;
 	}
+
+	@Override
+	public void shutdown() {
+		stopSelf();
+	}
+	
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================

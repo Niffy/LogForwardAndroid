@@ -26,17 +26,19 @@ public class LogManagerAndroid extends LogManagerServer {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-
+	protected IService mServce;
 	// ===========================================================
 	// Constructors
 	// ===========================================================
 
-	public LogManagerAndroid(final ISelector pSelector, final int pVersion) {
+	public LogManagerAndroid(final ISelector pSelector, final int pVersion, final IService pService) {
 		super(pSelector, pVersion);
+		this.mServce = pService;
 	}
 
-	public LogManagerAndroid(final int pVersion) {
+	public LogManagerAndroid(final int pVersion, final IService pService) {
 		super(pVersion);
+		this.mServce = pService;
 	}
 
 	// ===========================================================
@@ -77,6 +79,11 @@ public class LogManagerAndroid extends LogManagerServer {
 		this.sendMessage(pCallbackInfo.getAddress(), pMessage);
 	}
 
+	@Override
+	public void shutdownService(final InetSocketAddress pAddress){
+		super.shutdownService(pAddress);
+		this.mServce.shutdown();
+	}
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
