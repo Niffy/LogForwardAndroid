@@ -13,7 +13,6 @@ public class TaskDeleteAndroid extends TaskDelete {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(TaskDeleteAndroid.class);
 
 	// ===========================================================

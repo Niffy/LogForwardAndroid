@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
+import com.niffy.logforward.android.R;
 import com.niffy.logforwarder.lib.ServerSelector;
 
 public class LogForwardService extends Service {
@@ -46,14 +47,15 @@ public class LogForwardService extends Service {
 		String maxBackupSize = prefs.getString(getResources().getString(R.string.settings_key_log_backup_qty), "10");
 		String level = prefs.getString(getResources().getString(R.string.settings_key_log_level), "10000");
 		String fileSize = prefs.getString(getResources().getString(R.string.settings_key_log_file_size), "10485760");
-		String buffer = prefs.getString(getResources().getString(R.string.settings_key_log_file_size), "12582912");
-		String port = prefs.getString(getResources().getString(R.string.settings_key_log_file_size), "1008");
+		String buffer = prefs.getString(getResources().getString(R.string.settings_key_network_buffer), "12582912");
+		String port = prefs.getString(getResources().getString(R.string.settings_key_network_port), "1008");
 		int pMaxBackupSize = Integer.valueOf(maxBackupSize);
 		int pLevel = Integer.valueOf(level);
 		int pFileSize = Integer.valueOf(fileSize);
 		int pBufferCapacity = Integer.valueOf(buffer);
 		int pPort = Integer.valueOf(port);
-		InetSocketAddress pAddress = new InetSocketAddress(pPort);
+		InetSocketAddress pAddress = new InetSocketAddress(Utils.getIPAddress(true), pPort);
+		
 		ConfigureLog.configure(pLogName, pMaxBackupSize, pLevel, pFileSize);
 		LOGMANAGER = new LogManagerAndroid(VERSION);
 

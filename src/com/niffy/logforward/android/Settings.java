@@ -2,6 +2,7 @@ package com.niffy.logforward.android;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import com.niffy.logforward.android.R;
 
 public class Settings extends PreferenceActivity {
 	// ===========================================================

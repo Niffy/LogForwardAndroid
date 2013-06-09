@@ -17,7 +17,6 @@ public class TaskReadAndroid extends TaskRead {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(TaskReadAndroid.class);
 
 	// ===========================================================

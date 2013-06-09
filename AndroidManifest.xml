@@ -26,10 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:name=".LogForwardService"
-            android:exported="false" >
+            android:name="com.niffy.logforward.android.LogForwardService"
+            android:exported="false">
         </service>
+        <activity
+            android:name="com.niffy.logforward.android.Settings"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
