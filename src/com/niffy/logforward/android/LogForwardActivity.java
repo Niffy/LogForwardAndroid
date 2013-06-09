@@ -33,7 +33,7 @@ public class LogForwardActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ConfigureLog.configure("LogForwardActivity.log", 1, 10000, 1024 * 1024);
 		setContentView(R.layout.activity_log_forward);
-		this.mStatus = (TextView) findViewById(R.id.status_label);
+		this.mStatus = (TextView) findViewById(R.id.status_text);
 		this.mStart = (Button) findViewById(R.id.btn_start);
 		this.mStop = (Button) findViewById(R.id.btn_stop);
 		this.mSettings = (Button) findViewById(R.id.btn_settings);
@@ -45,7 +45,7 @@ public class LogForwardActivity extends Activity {
 			this.mStatus.setText(getResources().getString(R.string.activity_status_running));
 		} else {
 			log.info("Service is not running on launch");
-			this.mStatus.setText(getResources().getString(R.string.activity_status_running));
+			this.mStatus.setText(getResources().getString(R.string.activity_status_not_running));
 		}
 
 		this.mStart.setOnClickListener(new OnClickListener() {
@@ -117,14 +117,14 @@ public class LogForwardActivity extends Activity {
 	}
 
 	protected void stop() {
-		boolean running = this.isServiceRunning(LogForwardService.class.toString());
+		boolean running = this.isServiceRunning(LogForwardService.class.getName());
 		if (running) {
 			log.info("Service is running, will stop");
 			Intent intent = new Intent(this, LogForwardService.class);
 			boolean stopped = stopService(intent);
 			if (stopped) {
 				log.info("Service was stopped");
-				this.mStatus.setText(getResources().getString(R.string.activity_status_running));
+				this.mStatus.setText(getResources().getString(R.string.activity_status_not_running));
 			} else {
 				log.info("Service was not stopped");
 				this.mStatus.setText(getResources().getString(R.string.activity_status_unknown));
@@ -140,7 +140,7 @@ public class LogForwardActivity extends Activity {
 	}
 
 	protected void check() {
-		boolean running = this.isServiceRunning(LogForwardService.class.toString());
+		boolean running = this.isServiceRunning(LogForwardService.class.getName());
 		if (running) {
 			log.info("Service check. Is running");
 			this.mStatus.setText(getResources().getString(R.string.activity_status_running));
@@ -151,11 +151,13 @@ public class LogForwardActivity extends Activity {
 	}
 
 	public boolean isServiceRunning(String serviceClassName) {
+		log.debug("Service name to check is running:{}", serviceClassName);
 		final ActivityManager activityManager = (ActivityManager) this.getApplicationContext().getSystemService(
 				Context.ACTIVITY_SERVICE);
 		final List<RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
 
 		for (RunningServiceInfo runningServiceInfo : services) {
+			log.info("Service name: {}", runningServiceInfo.service.getClassName());
 			if (runningServiceInfo.service.getClassName().equals(serviceClassName)) {
 				return true;
 			}
